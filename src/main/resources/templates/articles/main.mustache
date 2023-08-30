@@ -1,0 +1,56 @@
+{{>layouts/header}}
+
+
+<!-- 검색 창 추가 -->
+<form class="searchs"style="text-align: center; margin: 50px" action="/search" method="GET">
+    <input class="form-control me-2" id = "input" style="width:350px;height:50px; font-size:15px;  display: inline-block;" type="search" name="query" placeholder="검색어를 입력하세요" aria-label="Search">
+    <button class="btn btn-outline-success" onclick="onClickUpload();"  style="display: inline-block" type="submit">검색</button>
+</form>
+
+<script>
+    /* 입력 &검색 연결 */
+    function onClickUpload() {
+        let Input = document.getElementById("input");
+        Input.click();
+    }
+    /* 드롭다운 */
+    $(document).ready(function() {
+        // 'BRAND' 버튼을 클릭하면 드롭다운 메뉴가 토글되도록 설정
+        $('.menu_button').on('click', function(e) {
+            e.stopPropagation(); // 이벤트 버블링을 막음
+            $(this).siblings('.dropdown-menu').toggleClass('show');
+        });
+        
+        // 다른 곳을 클릭하면 드롭다운 메뉴가 닫히도록 설정
+        $(document).on('click', function(event) {
+            if (!$(event.target).closest('.menu_button').length) {
+                $('.dropdown-menu').removeClass('show');
+            }
+        });
+    });
+    /* 메뉴 선택 시 페이지 이동*/
+    function navigateToSamsung() {
+        // samsung Mustache 파일로 페이지 이동
+        window.location.href = "/articles/SAMSUNG";
+    }
+    function navigateToLg() {
+        // LG Mustache 파일로 페이지 이동
+        window.location.href = "/articles/LG";
+    }
+    function navigateToKakao() {
+        // KAKAO Mustache 파일로 페이지 이동
+        window.location.href = "/articles/KAKAO";
+    }
+    function navigateToSmeg() {
+        // SMEG Mustache 파일로 페이지 이동
+        window.location.href = "/articles/SMEG";
+    }
+    function navigateToCcomo() {
+        // CCOMO Mustache 파일로 페이지 이동
+        window.location.href = "/articles/CCOMO";
+    }
+    function navigateToMiddle() {
+        // MIDDLE Mustache 파일로 페이지 이동
+        window.location.href = "/articles/MIDDLE";
+    }
+</script>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Your other meta tags, links, and stylesheets... -->
+</head>
+<body>
+    <!-- Navigation with Dropdown -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+            <a class="navbar-brand mx-auto" href="#" style="color: white;">Carrier</a>
+            <div class="ml-auto">
+                <div class="dropdown">
+                    <button class="menu_button dropdown-toggle" type="button" id="brandDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: transparent; border: 1px solid transparent; color: white;">
+                        BRAND
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="brandDropdown">
+                        <li><a class="dropdown-item" href="#" onclick="navigateToSamsung()">SAMSUNG</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="navigateToLg()">LG</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="navigateToKakao()">KAKAO</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="navigateToSmeg()">SMEG</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="navigateToCcomo()">CCOMO</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="navigateToMiddle()">MIDDLE</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="nav-item">
+                <a class="btn btn-primary btn-sm rounded-pill nav-link" href="/" style="background: none; border: none; color: white; onclick="navigateToMain()">Home</a>
+            </div>
+        </div>
+    </nav>
+    <!-- Popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js" integrity="sha384-Lzv4V0E4ByB46YmJkX1R7R6hVrK6a3RrE9JwI+gNb9HWJgbzU7f6kV8JfBEQ2M6U" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-pzjw7f+ua9b4PWf6W1Bq5mJN16dHpeVf1+5PA7hUEni0p5f6czduW7QD8xI6FqJ" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</body>
+</html>
