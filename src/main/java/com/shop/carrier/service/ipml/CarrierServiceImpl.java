@@ -38,11 +38,19 @@ public class CarrierServiceImpl implements CarrierService {
 
     @Override
     public ResponseDto convert(Carrier carrier) {
-        return conversionService.convert(carrier, ResponseDto.class);
+        ResponseDto dto = new ResponseDto();
+        dto.setBrand(carrier.getBrand());
+        dto.setImage(carrier.getImage());
+        dto.setProductId(carrier.getProductId());
+        dto.setProductName(carrier.getProductName());
+        dto.setCapacity(carrier.getCapacity());
+        dto.setPrice(carrier.getPrice());
+        dto.setSize(carrier.getSize());
+        return dto;
     }
 
     @Override
     public Carrier getCarrierById(Long productId) {
-        return carrierRepository.findById(productId).orElse(null);
+        return carrierRepository.findByProductId(productId);
     }
 }

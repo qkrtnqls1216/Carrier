@@ -1,11 +1,12 @@
 package com.shop.carrier.data.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -15,4 +16,7 @@ public class ResponseDto {
     private String brand;
     private String productName;
     private String image;
+    private int price;
+    private double capacity;
+    private String size;
 }

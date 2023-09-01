@@ -3,30 +3,36 @@
 <!-- 검색 창 추가 -->
 <form class="searchs" style="text-align: center; margin: 50px">
     <input class="form-control me-2" id="input" style="width:350px;height:50px; font-size:15px; display: inline-block;" type="search" placeholder="검색어를 입력하세요" aria-label="Search">
-    <button class="btn btn-outline-success" onclick="performSearch();" style="display: inline-block" type="button">검색</button>
+    <button class="btn btn-outline-success" onclick="performSearch()">검색</button>
 </form>
 
 <h1>BEST ITEM</h1>
 
 <!-- main.mustache 내용 -->
-<div class="card-container" onclick="openProductPopup()">
+<div class="card-container">
     {{#carrierList}}
     <div class="card" data-product="{{productId}}">
+        <a href="/articles/product-details/{{productId}}">
         <img src="{{image}}" alt="Product Image">
         <div class="card-info">
             <p class="brand">{{brand}}</p>
             <p class="product-name">{{productName}}</p>
         </div>
+        </a>
     </div>
     {{/carrierList}}
 </div>
-<!-- 팝업 -->
+{% comment %} <!-- 팝업 -->
 <div id="productPopup" class="ModalPopup">
     <p id="popupProductName" class="brand"></p>
     <p id="popupProductDescription" class="product-name"></p>
+    <p id="popupPrice">가격: </p>
+    <p id="popupCapacity">용량: </p>
+    <p id="popupSize">크기: </p>
     <!-- 기타 제품 정보 항목 추가 -->
     <button class="btn btn-primary" onclick="closeProductPopup()">닫기</button>
-</div>
+    
+</div> {% endcomment %}
 
 <!-- 페이드 영역-->
 <div id="mask"></div>
@@ -86,37 +92,53 @@
 <!-- jQuery 라이브러리를 불러옵니다. -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+    /* 검색 로직 */
+    function performSearch() {
+        const searchTerm = document.getElementById('input').value;
+        const newURL = '/articles/' + searchTerm;
+        history.pushState({ path: newURL }, '', newURL);
+        updateSearchResults(searchTerm);
+    }
     // 페이지가 로드되면 실행될 함수
-    window.onload = function() {
+    {% comment %} window.onload = function() {
         // 모든 제품 카드 요소를 가져옴
         var productCards = document.querySelectorAll('.card');
     
         // 각 제품 카드에 클릭 이벤트 리스너 추가
         productCards.forEach(function(card) {
-            card.addEventListener('click', function() {
+            card.addEventListener('click', function(event) {
                 // 클릭된 제품 카드의 데이터-product 속성값을 가져옴
-                var productId = card.getAttribute('data-product');
-    
+                // var productId = card.getAttribute('data-product');
+                
+                var productId = event.target.textContent;
                 // 제품 카드가 클릭되었을 때 할 작업 수행
                 // 팝업 열기 함수 호출
+                
                 openProductPopup(productId);
             });
-        });
+        }); {% endcomment %}
     };
 
     /* 팝업 열기 함수 */
-    function openProductPopup(productId) {
+    {% comment %} function openProductPopup(productId) {
         var popup = document.getElementById('productPopup');
         var popupProductName = document.getElementById('popupProductName');
         var popupProductDescription = document.getElementById('popupProductDescription');
-
+        var popupPrice = document.getElementById('popupPrice');
+        var popupCapacity = document.getElementById('popupCapacity');
+        var popupSize = document.getElementById('popupSize');
+    
         // productId를 사용하여 선택한 제품 정보를 가져오는 코드
         var selectedProduct = getProductInfoById(productId);
-
+    
+        console.log("b :" + productId);
         // 선택한 제품 정보를 팝업 내부의 엘리먼트에 삽입
         popupProductName.textContent = selectedProduct.brand;
         popupProductDescription.textContent = selectedProduct.productName;
-
+        popupPrice.textContent = "가격: " + selectedProduct.price;
+        popupCapacity.textContent = "용량: " + selectedProduct.capacity;
+        popupSize.textContent = "크기: " + selectedProduct.size;
+    
         // 팝업을 표시합니다.
         $(popup).show();
     }
@@ -125,9 +147,13 @@
     function getProductInfoById(productId) {
         // productId를 사용하여 서버에서 선택한 제품 정보를 가져오는 로직을 구현
         // 이 예시에서는 더미 데이터를 반환
+        console.log("c :" + productId);
         var dummyData = {
             brand: "선택한 브랜드",
-            productName: "선택한 제품명",
+            productName: productId,
+            price: "가격 정보",
+            capacity: "용량 정보",
+            size: "크기 정보",
             // 기타 제품 정보 필드 추가
         };
         return dummyData;
@@ -137,7 +163,7 @@
     function closeProductPopup() {
         var popup = document.getElementById('productPopup');
         $(popup).hide(); // 팝업을 숨깁니다.
-    }
+    } {% endcomment %}
 
     /*버튼 클릭시 위 함수 콜*/
     $(function () {
@@ -164,18 +190,18 @@
     /* 메뉴 선택 시 페이지 이동*/
     function navigateToCommend1() {
         // samsung Mustache 파일로 페이지 이동
-        window.location.href = "/articles/Commend1";
+        window.location.href = "/articles/commend1";
     }
     function navigateToCommend2() {
         // LG Mustache 파일로 페이지 이동
-        window.location.href = "/articles/Commend2";
+        window.location.href = "/articles/commend2";
     }
     function navigateToCommend3() {
         // KAKAO Mustache 파일로 페이지 이동
-        window.location.href = "/articles/Commend3";
+        window.location.href = "/articles/commend3";
     }
     function navigateToCommend4() {
         // SMEG Mustache 파일로 페이지 이동
-        window.location.href = "/articles/Commend4";
+        window.location.href = "/articles/commend4";
     }
 </script>

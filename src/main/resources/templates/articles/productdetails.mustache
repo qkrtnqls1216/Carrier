@@ -2,10 +2,15 @@
 
 <!-- 제품 상세 정보 표시 -->
 <div class="product-details-container">
-    <img src="{{carrier.image}}" alt="Product Image">
-    <p class="brand">{{carrier.brand}}</p>
-    <p class="product-name">{{carrier.productName}}</p>
+    {{#carrier}}
+    <img src="{{image}}" alt="Product Image">
+    <p class="brand">{{brand}}</p>
+    <p class="product-name">{{productName}}</p>
+    <p class="price">가격 : {{price}}</p>
+    <p class="size">크기 : {{size}}</p>
+    <p class="capacity">용량 : {{capacity}}</p>
     <!-- 기타 제품 정보 항목 추가 -->
+    {{/carrier}}
 </div>
 
 <style>
