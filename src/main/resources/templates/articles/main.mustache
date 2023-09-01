@@ -72,7 +72,7 @@
 <!-- jQuery 라이브러리를 불러옵니다. -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    /* 검색 로직 */
+    {% comment %} /* 검색 로직 */
     function performSearch() {
         const searchTerm = document.getElementById('input').value;
         // 검색 결과 업데이트
@@ -108,7 +108,7 @@
                 console.error('Error fetching search results:', error);
             }
         });
-    }
+    } {% endcomment %}
     // 페이지가 로드되면 실행될 함수
     window.onload = function() {
         // 모든 제품 카드 요소를 가져옴
@@ -121,8 +121,8 @@
                 var productId = card.getAttribute('data-product');
     
                 // 제품 카드가 클릭되었을 때 할 작업 수행
-                // 예: 클릭된 제품의 정보를 보여주거나 다른 동작 수행
-                console.log('Product clicked:', productId);
+                // 팝업 열기 함수 호출
+                openProductPopup(productId);
             });
         });
     };

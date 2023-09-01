@@ -28,14 +28,13 @@ public class Carrier implements Serializable {
     @Column(name = "brand")
     private String brand;
 
-    @Id
     @Column(name = "product_name")
     private String productName;
 
     @Column(name = "price")
     private int price;
 
-    @Column(name = "capacity_L")
+    @Column(name = "capacity_l")
     private double capacity;
 
     @Column(name = "size_cm")
@@ -138,6 +137,5 @@ public class Carrier implements Serializable {
 
     public static class CarrierId implements Serializable {
         private Long productId; // productId 필드 추가
-        private String productName;
     }
 }
