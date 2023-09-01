@@ -43,6 +43,13 @@ public class CarrierController {
         return ResponseEntity.ok(searchResults);
     }
 
+    @GetMapping("/articles/product-details/{productId}")
+    public String getProductDetails(Model model, @PathVariable Long productId) {
+        Carrier carrier = carrierservice.getCarrierById(productId); // 해당 productId에 해당하는 제품 정보 조회
+        model.addAttribute("carrier", carrier);
+        return "articles/product-details"; // 상세 정보를 보여줄 페이지로 이동
+    }
+
     @GetMapping("articles/commend1")
     public String commend1() {
         return "articles/commend1";

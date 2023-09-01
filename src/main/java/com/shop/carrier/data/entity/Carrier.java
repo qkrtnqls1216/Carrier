@@ -21,6 +21,10 @@ import lombok.ToString;
 @IdClass(Carrier.CarrierId.class)
 public class Carrier implements Serializable {
 
+    @Id
+    @Column(name = "product_id") // productId 필드 추가
+    private Long productId;
+
     @Column(name = "brand")
     private String brand;
 
@@ -58,6 +62,14 @@ public class Carrier implements Serializable {
 
     public void setBrand(String brand) {
         this.brand = brand;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public String getProductName() {
@@ -125,6 +137,7 @@ public class Carrier implements Serializable {
     }
 
     public static class CarrierId implements Serializable {
+        private Long productId; // productId 필드 추가
         private String productName;
     }
 }

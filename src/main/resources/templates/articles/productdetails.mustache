@@ -1,0 +1,31 @@
+{{>layouts/header}}
+
+<!-- 제품 상세 정보 표시 -->
+<div class="product-details-container">
+    <img src="{{carrier.image}}" alt="Product Image">
+    <p class="brand">{{carrier.brand}}</p>
+    <p class="product-name">{{carrier.productName}}</p>
+    <!-- 기타 제품 정보 항목 추가 -->
+</div>
+
+<style>
+    /* 제품 상세 정보 스타일 설정 */
+    .product-details-container {
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    .product-details-container img {
+        max-width: 300px;
+        height: auto;
+    }
+
+    .brand {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .product-name {
+        font-size: 18px;
+    }
+</style>

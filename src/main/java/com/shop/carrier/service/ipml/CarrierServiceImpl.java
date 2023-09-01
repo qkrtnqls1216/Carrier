@@ -40,4 +40,9 @@ public class CarrierServiceImpl implements CarrierService {
     public ResponseDto convert(Carrier carrier) {
         return conversionService.convert(carrier, ResponseDto.class);
     }
+
+    @Override
+    public Carrier getCarrierById(Long productId) {
+        return carrierRepository.findById(productId).orElse(null);
+    }
 }
