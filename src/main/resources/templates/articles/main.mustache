@@ -9,7 +9,7 @@
 <h1>BEST ITEM</h1>
 
 <!-- main.mustache 내용 -->
-<div class="card-container">
+<div class="card-container" onclick="openProductPopup()">
     {{#carrierList}}
     <div class="card" data-product="{{productId}}">
         <img src="{{image}}" alt="Product Image">
@@ -21,14 +21,15 @@
     {{/carrierList}}
 </div>
 <!-- 팝업 -->
-<div class="popup" id="productPopup">
-    <div class="popup-content">
-        <p id="popupProductName" class="brand"></p>
-        <p id="popupProductDescription" class="product-name"></p>
-        <!-- 기타 제품 정보 항목 추가 -->
-    </div>
+<div id="productPopup" class="ModalPopup">
+    <p id="popupProductName" class="brand"></p>
+    <p id="popupProductDescription" class="product-name"></p>
+    <!-- 기타 제품 정보 항목 추가 -->
     <button class="btn btn-primary" onclick="closeProductPopup()">닫기</button>
 </div>
+
+<!-- 페이드 영역-->
+<div id="mask"></div>
 <style>
     .container {
         text-align: center;
@@ -67,48 +68,24 @@
     .product-name {
         font-size: 14px;
     }
+    /* 팝업 스타일 수정 */
+    .ModalPopup {
+        border: 1px solid blue;
+        width: 300px; /* 팝업 너비 조정 */
+        padding: 20px; /* 내용 여백 추가 */
+        display: none;
+        position: fixed; /* 고정 위치 */
+        top: 50%; /* 화면 세로 중앙으로 이동 */
+        left: 50%; /* 화면 가로 중앙으로 이동 */
+        transform: translate(-50%, -50%); /* 가운데 정렬 */
+        z-index: 10000;
+        background-color: #fff;
+    }
 </style>
     
 <!-- jQuery 라이브러리를 불러옵니다. -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    {% comment %} /* 검색 로직 */
-    function performSearch() {
-        const searchTerm = document.getElementById('input').value;
-        // 검색 결과 업데이트
-        updateSearchResults(searchTerm);
-    }
-    
-    /* 데이터 업데이트 함수 (서버사이드와 통신) */
-    function updateSearchResults(searchTerm) {
-        $.ajax({
-            url: '/search', // 데이터 조회를 처리하는 서버 엔드포인트 URL
-            method: 'GET',
-            data: { query: searchTerm }, // 검색어를 서버로 전달
-            success: function(response) {
-                const results = response.results; // 서버에서 받은 결과 데이터
-                
-                const cardContainer = document.querySelector('.card-container');
-                cardContainer.innerHTML = ''; // 기존 결과 지우기
-                
-                // 검색 결과를 카드로 추가
-                for (const result of results) {
-                    const card = `
-                        <div class="card">
-                            <img src="${result.image}" alt="Product Image">
-                            <div class="card-info">
-                                <p class="brand">${result.brand}</p>
-                                <p class="product-name">${result.productName}</p>
-                            </div>
-                        </div>`;
-                    cardContainer.innerHTML += card;
-                }
-            },
-            error: function(error) {
-                console.error('Error fetching search results:', error);
-            }
-        });
-    } {% endcomment %}
     // 페이지가 로드되면 실행될 함수
     window.onload = function() {
         // 모든 제품 카드 요소를 가져옴
@@ -126,24 +103,49 @@
             });
         });
     };
-    
-    // 팝업 열기 함수
-    function openProductPopup(brand, productName) {
+
+    /* 팝업 열기 함수 */
+    function openProductPopup(productId) {
         var popup = document.getElementById('productPopup');
         var popupProductName = document.getElementById('popupProductName');
         var popupProductDescription = document.getElementById('popupProductDescription');
-    
-        popupProductName.textContent = brand;
-        popupProductDescription.textContent = productName;
-    
-        popup.style.display = 'block';
+
+        // productId를 사용하여 선택한 제품 정보를 가져오는 코드
+        var selectedProduct = getProductInfoById(productId);
+
+        // 선택한 제품 정보를 팝업 내부의 엘리먼트에 삽입
+        popupProductName.textContent = selectedProduct.brand;
+        popupProductDescription.textContent = selectedProduct.productName;
+
+        // 팝업을 표시합니다.
+        $(popup).show();
     }
-    
-    // 팝업 닫기 함수
+
+    /* 선택한 제품 정보를 가져오는 함수 */
+    function getProductInfoById(productId) {
+        // productId를 사용하여 서버에서 선택한 제품 정보를 가져오는 로직을 구현
+        // 이 예시에서는 더미 데이터를 반환
+        var dummyData = {
+            brand: "선택한 브랜드",
+            productName: "선택한 제품명",
+            // 기타 제품 정보 필드 추가
+        };
+        return dummyData;
+    }
+
+    /* 팝업 닫기 함수 */
     function closeProductPopup() {
         var popup = document.getElementById('productPopup');
-        popup.style.display = 'none';
+        $(popup).hide(); // 팝업을 숨깁니다.
     }
+
+    /*버튼 클릭시 위 함수 콜*/
+    $(function () {
+        $('.openMask').click(function(e) {
+            e.preventDefault();
+            wrapWindowByMask();
+        });
+});
     /* 드롭다운 */
     $(document).ready(function() {
         // 'BRAND' 버튼을 클릭하면 드롭다운 메뉴가 토글되도록 설정
