@@ -2,16 +2,104 @@
 
 
 <!-- 검색 창 추가 -->
-<form class="searchs"style="text-align: center; margin: 50px" action="/search" method="GET">
-    <input class="form-control me-2" id = "input" style="width:350px;height:50px; font-size:15px;  display: inline-block;" type="search" name="query" placeholder="검색어를 입력하세요" aria-label="Search">
-    <button class="btn btn-outline-success" onclick="onClickUpload();"  style="display: inline-block" type="submit">검색</button>
+<form class="searchs" style="text-align: center; margin: 50px">
+    <input class="form-control me-2" id="input" style="width:350px;height:50px; font-size:15px; display: inline-block;" type="search" placeholder="검색어를 입력하세요" aria-label="Search">
+    <button class="btn btn-outline-success" onclick="performSearch();" style="display: inline-block" type="button">검색</button>
 </form>
 
+<h1>BEST ITEM</h1>
+
+<!-- main.mustache 내용 -->
+<div class="card-container">
+    {{#carrierList}} <!-- carrierList Java에서 전달하는 데이터 리스트 변수 -->
+    <div class="card">
+        <img src="{{image}}" alt="Product Image">
+        <div class="card-info">
+            <p class="brand">{{brand}}</p>
+            <p class="product-name">{{productName}}</p>
+        </div>
+    </div>
+    {{/carrierList}}
+</div>
+<style>
+    .container {
+        text-align: center;
+    }
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center; /* 카드들을 수평으로 가운데 정렬 */
+    }
+
+    .card {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin: 10px;
+        padding: 10px;
+        width: 200px;
+        box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+    }
+
+    .card img {
+        width: 100%;
+        height: auto;
+        max-height: 150px;
+    }
+
+    .card-info {
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    .brand {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .product-name {
+        font-size: 14px;
+    }
+</style>
+    
+<!-- jQuery 라이브러리를 불러옵니다. -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    /* 입력 &검색 연결 */
-    function onClickUpload() {
-        let Input = document.getElementById("input");
-        Input.click();
+    /* 검색 로직 */
+    function performSearch() {
+        const searchTerm = document.getElementById('input').value;
+        // 검색 결과 업데이트
+        updateSearchResults(searchTerm);
+    }
+    
+    /* 데이터 업데이트 함수 (서버사이드와 통신) */
+    function updateSearchResults(searchTerm) {
+        $.ajax({
+            url: '/search', // 데이터 조회를 처리하는 서버 엔드포인트 URL
+            method: 'GET',
+            data: { query: searchTerm }, // 검색어를 서버로 전달
+            success: function(response) {
+                const results = response.results; // 서버에서 받은 결과 데이터
+                
+                const cardContainer = document.querySelector('.card-container');
+                cardContainer.innerHTML = ''; // 기존 결과 지우기
+                
+                // 검색 결과를 카드로 추가
+                for (const result of results) {
+                    const card = `
+                        <div class="card">
+                            <img src="${result.image}" alt="Product Image">
+                            <div class="card-info">
+                                <p class="brand">${result.brand}</p>
+                                <p class="product-name">${result.productName}</p>
+                            </div>
+                        </div>`;
+                    cardContainer.innerHTML += card;
+                }
+            },
+            error: function(error) {
+                console.error('Error fetching search results:', error);
+            }
+        });
     }
     /* 드롭다운 */
     $(document).ready(function() {
@@ -29,28 +117,20 @@
         });
     });
     /* 메뉴 선택 시 페이지 이동*/
-    function navigateToSamsung() {
+    function navigateToCommend1() {
         // samsung Mustache 파일로 페이지 이동
-        window.location.href = "/articles/SAMSUNG";
+        window.location.href = "/articles/Commend1";
     }
-    function navigateToLg() {
+    function navigateToCommend2() {
         // LG Mustache 파일로 페이지 이동
-        window.location.href = "/articles/LG";
+        window.location.href = "/articles/Commend2";
     }
-    function navigateToKakao() {
+    function navigateToCommend3() {
         // KAKAO Mustache 파일로 페이지 이동
-        window.location.href = "/articles/KAKAO";
+        window.location.href = "/articles/Commend3";
     }
-    function navigateToSmeg() {
+    function navigateToCommend4() {
         // SMEG Mustache 파일로 페이지 이동
-        window.location.href = "/articles/SMEG";
-    }
-    function navigateToCcomo() {
-        // CCOMO Mustache 파일로 페이지 이동
-        window.location.href = "/articles/CCOMO";
-    }
-    function navigateToMiddle() {
-        // MIDDLE Mustache 파일로 페이지 이동
-        window.location.href = "/articles/MIDDLE";
+        window.location.href = "/articles/Commend4";
     }
 </script>
