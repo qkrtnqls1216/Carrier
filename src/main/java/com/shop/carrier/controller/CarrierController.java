@@ -27,6 +27,8 @@ public class CarrierController {
     public String main(Model model) {
         List<Carrier> carrierList = carrierservice.getAllCarriers();
         model.addAttribute("carrierList", carrierList);
+        // isMainPage 변수를 true로 설정하여 전달
+        model.addAttribute("isMainPage", true);
         return "articles/main";
     }
 
@@ -34,6 +36,8 @@ public class CarrierController {
     public String brand(Model model, @PathVariable String brand) {
         List<ResponseDto> carrierList = carrierservice.getCarriersByBrand(brand);
         model.addAttribute("carrierList", carrierList);
+        // isMainPage 변수를 false로 설정하여 전달
+        model.addAttribute("isMainPage", false);
         return "articles/main";
     }
 
@@ -51,22 +55,22 @@ public class CarrierController {
     }
 
     @GetMapping("articles/commend1")
-    public String commend1() {
+    public String Commend1() {
         return "articles/commend1";
     }
 
     @GetMapping("articles/commend2")
-    public String commend2() {
+    public String Commend12() {
         return "articles/commend2";
     }
 
     @GetMapping("articles/commend3")
-    public String commend3() {
+    public String Commend3() {
         return "articles/commend3";
     }
 
     @GetMapping("articles/commend4")
-    public String commend4() {
+    public String Commend4() {
         return "articles/commend4";
     }
 }

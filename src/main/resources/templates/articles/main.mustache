@@ -1,12 +1,14 @@
 {{>layouts/header}}
 
+{{#isMainPage}}
 <!-- 검색 창 추가 -->
 <form class="searchs" style="text-align: center; margin: 50px">
-    <input class="form-control me-2" id="input" style="width:350px;height:50px; font-size:15px; display: inline-block;" type="search" placeholder="검색어를 입력하세요" aria-label="Search">
+    <input class="form-control me-2" id="input" style="width:550px;height:50px; font-size:15px; display: inline-block;" type="search" placeholder="검색어를 입력하세요" aria-label="Search">
     <button class="btn btn-outline-success" onclick="performSearch()">검색</button>
 </form>
 
-<h1>BEST ITEM</h1>
+<h1 style="margin-left: 80px;">ALL</h1>
+{{/isMainPage}}
 
 <!-- main.mustache 내용 -->
 <div class="card-container">
@@ -64,6 +66,7 @@
     .card-info {
         margin-top: 10px;
         text-align: center;
+        color: black; /* 글자색을 검은색으로 설정 */
     }
 
     .brand {
@@ -87,11 +90,58 @@
         z-index: 10000;
         background-color: #fff;
     }
+    /* 배경에 화려한 빛나는 효과 애니메이션 추가 */
+    @keyframes shine {
+        0% {
+            background-color: gray;
+        }
+        50% {
+            background-color: silver;
+        }
+        100% {
+            background-color: gray;
+        }
+    }
+
+    body {
+        animation: shine 4s linear infinite; /* 무한한 반짝임 애니메이션 추가 */
+    }
+    /* 카드 호버 효과 정의 */
+    .card:hover {
+        transform: translate(0, -5px); /* 호버 시 약간 위로 이동하는 효과 */
+        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3); /* 그림자 효과 추가 */
+    }
 </style>
     
 <!-- jQuery 라이브러리를 불러옵니다. -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+    // 메인 페이지에서만 실행되도록 조건 추가
+    {{#isMainPage}}
+    document.addEventListener("DOMContentLoaded", function() {
+        const searchForm = document.querySelector(".searchs");
+        const title = document.querySelector("h1");
+        searchForm.style.display = "block"; // 검색 창 보이게 변경
+        title.style.display = "block"; // 제목 보이게 변경
+    });
+    {{/isMainPage}}
+    // 페이지가 로드되면 실행될 함수
+    window.onload = function() {
+        // 모든 제품 카드 요소를 가져옴
+        var productCards = document.querySelectorAll('.card');
+
+        // 각 제품 카드에 클릭 이벤트 리스너 추가
+        productCards.forEach(function(card) {
+            card.addEventListener('click', function(event) {
+                // 클릭된 제품 카드의 데이터-product 속성값을 가져옴
+                var productId = card.getAttribute('data-product');
+
+                // 제품 카드가 클릭되었을 때 할 작업 수행
+                // 팝업 열기 함수 호출
+                openProductPopup(productId);
+            });
+        });
+    };
     /* 검색 로직 */
     function performSearch() {
         const searchTerm = document.getElementById('input').value;
@@ -99,95 +149,7 @@
         history.pushState({ path: newURL }, '', newURL);
         updateSearchResults(searchTerm);
     }
-    // 페이지가 로드되면 실행될 함수
-    {% comment %} window.onload = function() {
-        // 모든 제품 카드 요소를 가져옴
-        var productCards = document.querySelectorAll('.card');
-    
-        // 각 제품 카드에 클릭 이벤트 리스너 추가
-        productCards.forEach(function(card) {
-            card.addEventListener('click', function(event) {
-                // 클릭된 제품 카드의 데이터-product 속성값을 가져옴
-                // var productId = card.getAttribute('data-product');
-                
-                var productId = event.target.textContent;
-                // 제품 카드가 클릭되었을 때 할 작업 수행
-                // 팝업 열기 함수 호출
-                
-                openProductPopup(productId);
-            });
-        }); {% endcomment %}
-    };
-
-    /* 팝업 열기 함수 */
-    {% comment %} function openProductPopup(productId) {
-        var popup = document.getElementById('productPopup');
-        var popupProductName = document.getElementById('popupProductName');
-        var popupProductDescription = document.getElementById('popupProductDescription');
-        var popupPrice = document.getElementById('popupPrice');
-        var popupCapacity = document.getElementById('popupCapacity');
-        var popupSize = document.getElementById('popupSize');
-    
-        // productId를 사용하여 선택한 제품 정보를 가져오는 코드
-        var selectedProduct = getProductInfoById(productId);
-    
-        console.log("b :" + productId);
-        // 선택한 제품 정보를 팝업 내부의 엘리먼트에 삽입
-        popupProductName.textContent = selectedProduct.brand;
-        popupProductDescription.textContent = selectedProduct.productName;
-        popupPrice.textContent = "가격: " + selectedProduct.price;
-        popupCapacity.textContent = "용량: " + selectedProduct.capacity;
-        popupSize.textContent = "크기: " + selectedProduct.size;
-    
-        // 팝업을 표시합니다.
-        $(popup).show();
-    }
-
-    /* 선택한 제품 정보를 가져오는 함수 */
-    function getProductInfoById(productId) {
-        // productId를 사용하여 서버에서 선택한 제품 정보를 가져오는 로직을 구현
-        // 이 예시에서는 더미 데이터를 반환
-        console.log("c :" + productId);
-        var dummyData = {
-            brand: "선택한 브랜드",
-            productName: productId,
-            price: "가격 정보",
-            capacity: "용량 정보",
-            size: "크기 정보",
-            // 기타 제품 정보 필드 추가
-        };
-        return dummyData;
-    }
-
-    /* 팝업 닫기 함수 */
-    function closeProductPopup() {
-        var popup = document.getElementById('productPopup');
-        $(popup).hide(); // 팝업을 숨깁니다.
-    } {% endcomment %}
-
-    /*버튼 클릭시 위 함수 콜*/
-    $(function () {
-        $('.openMask').click(function(e) {
-            e.preventDefault();
-            wrapWindowByMask();
-        });
-});
-    /* 드롭다운 */
-    $(document).ready(function() {
-        // 'BRAND' 버튼을 클릭하면 드롭다운 메뉴가 토글되도록 설정
-        $('.menu_button').on('click', function(e) {
-            e.stopPropagation(); // 이벤트 버블링을 막음
-            $(this).siblings('.dropdown-menu').toggleClass('show');
-        });
-        
-        // 다른 곳을 클릭하면 드롭다운 메뉴가 닫히도록 설정
-        $(document).on('click', function(event) {
-            if (!$(event.target).closest('.menu_button').length) {
-                $('.dropdown-menu').removeClass('show');
-            }
-        });
-    });
-    /* 메뉴 선택 시 페이지 이동*/
+        /* 메뉴 선택 시 페이지 이동*/
     function navigateToCommend1() {
         // samsung Mustache 파일로 페이지 이동
         window.location.href = "/articles/commend1";

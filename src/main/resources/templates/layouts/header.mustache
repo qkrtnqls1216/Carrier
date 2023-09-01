@@ -10,26 +10,49 @@
 
     <!-- Your other meta tags, links, and stylesheets... -->
 </head>
+<style>
+/* Navigation bar 스타일 수정 */
+.navbar {
+    background-color: gray; /* 배경색 변경 */
+    border: none; /* 경계선 제거 */
+}
+
+/* Navbar 브랜드 로고 스타일 수정 */
+.navbar-brand {
+    color: white !important; /* 글자색 흰색으로 설정 */
+    font-size: 24px; /* 원하는 글자 크기로 설정 */
+}
+
+/* Dropdown 메뉴 아이템 글자색과 크기 수정 */
+.dropdown-menu a.dropdown-item {
+    color: black !important; /* 드롭다운 메뉴 글자색 변경 */
+    font-size: 16px; /* 드롭다운 메뉴 글자 크기 변경 */
+}
+
+/* Home 버튼 스타일 수정 */
+.nav-item a.btn {
+    font-size: 16px; /* Home 버튼 글자 크기 변경 */
+}
+</style>
 <body>
     <!-- Navigation with Dropdown -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
-            <a class="navbar-brand mx-auto" href="#" style="color: white;">Carrier</a>
-            <div class="ml-auto">
-                <div class="dropdown">
-                    <button class="menu_button dropdown-toggle" type="button" id="brandDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: transparent; border: 1px solid transparent; color: white;">
-                        CTG
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="brandDropdown">
-                        <li><a class="dropdown-item" href="#" onclick="navigateToCommend1()">신혼부부추천</a></li>
-                        <li><a class="dropdown-item" href="#" onclick="navigateToCommend2()">1인가구추천</a></li>
-                        <li><a class="dropdown-item" href="#" onclick="navigateToCommend3()">귀염뽀짝</a></li>
-                        <li><a class="dropdown-item" href="#" onclick="navigateToCommend4()">가성비냉장고</a></li>
-                    </ul>
-                </div>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: gray;">
+        <a class="navbar-brand mx-auto" href="#" style="color: white;">Carrier</a>
+        <div class="ml-auto">
+            <div class="dropdown">
+                <button class="menu_button dropdown-toggle" type="button" id="brandDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: transparent; border: 1px solid transparent; color: white;">
+                    CTG
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="brandDropdown">
+                    <li><a class="dropdown-item" href="#" onclick="navigateToCommend1()">신혼부부추천</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="navigateToCommend2()">1인가구추천</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="navigateToCommend3()">귀염뽀짝</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="navigateToCommend4()">가성비냉장고</a></li>
+                </ul>
             </div>
-            <div class="nav-item">
-                <a class="btn btn-primary btn-sm rounded-pill nav-link" href="/articles/main" style="background: none; border: none; color: white;">Home</a>
-            </div>
+        </div>
+        <div class="nav-item">
+            <a class="btn btn-primary btn-sm rounded-pill nav-link" href="/articles/main" style="background: none; border: none; color: white;">Home</a>
         </div>
     </nav>
     <!-- Popper.js -->
