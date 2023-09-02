@@ -20,16 +20,16 @@ public interface CarrierRepository extends JpaRepository<Carrier, Long> { // 인
     List<Carrier> selectAllCharacter(@Param("brand1") String brand1, @Param("brand2") String brand2,
             @Param("brand3") String brand3);
 
-    // 가성비 냉장고powerConsumptionGrade - 문제
-    @Query("SELECT c FROM Carrier c WHERE c.price <= 1000000 and c.capacity <= 1000 and c.brand like %:brand% and powerConsumptionGrade <= 5 and doorCount <= 4 and numberofusers <= 4 ORDER BY price DESC, capacity ASC")
+    // 가성비 냉장고powerConsumptionGrade
+    @Query("SELECT c FROM Carrier c WHERE c.price <= 1000000 and c.capacity <= 1000 and (:brand IS NULL OR c.brand like %:brand%) and powerConsumptionGrade <= 5 and doorCount <= 4 and numberofusers <= 4 ORDER BY price DESC, capacity ASC")
     List<Carrier> selectAllgasungbi(@Param("brand") String brand);
 
     // 신혼부부 냉장고
-    @Query("SELECT c FROM Carrier c WHERE c.price <= 800000 and c.capacity <= 600 and c.brand like %:brand% ORDER BY c.price DESC, c.capacity ASC")
+    @Query("SELECT c FROM Carrier c WHERE c.price <= 800000 AND c.capacity <= 600 AND (:brand IS NULL OR c.brand like %:brand%) ORDER BY c.price DESC, c.capacity ASC")
     List<Carrier> selectAllNwl(@Param("brand") String brand);
 
     // 1인가구
-    @Query("SELECT c FROM Carrier c WHERE c.price <= 600000 AND c.capacity <= 300 AND c.brand like %:brand% AND c.powerConsumptionGrade <= 5 AND c.doorCount <= 4 AND c.numberOfUsers <= 4 ORDER BY c.price DESC, c.capacity ASC, c.numberOfUsers ASC, c.doorCount ASC, c.powerConsumptionGrade DESC")
+    @Query("SELECT c FROM Carrier c WHERE c.price <= 600000 AND c.capacity <= 300 AND (:brand IS NULL OR c.brand like %:brand%) AND c.powerConsumptionGrade <= 5 AND c.doorCount <= 4 AND c.numberOfUsers <= 4 ORDER BY c.price DESC, c.capacity ASC, c.numberOfUsers ASC, c.doorCount ASC, c.powerConsumptionGrade DESC")
     List<Carrier> selectAllsingle(@Param("brand") String brand);
 
 }
