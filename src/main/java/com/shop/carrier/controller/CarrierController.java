@@ -1,7 +1,6 @@
 package com.shop.carrier.controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +26,7 @@ public class CarrierController {
     public String main(Model model) {
         List<Carrier> carrierList = carrierservice.getAllCarriers();
         model.addAttribute("carrierList", carrierList);
-        // isMainPage 변수를 true로 설정하여 전달
+        // isMainPage 변수를 true로 설정하여 전달 - 작용안되는 부분
         model.addAttribute("isMainPage", true);
         return "articles/main";
     }
@@ -36,7 +35,7 @@ public class CarrierController {
     public String brand(Model model, @PathVariable String brand) {
         List<ResponseDto> carrierList = carrierservice.getCarriersByBrand(brand);
         model.addAttribute("carrierList", carrierList);
-        // isMainPage 변수를 false로 설정하여 전달
+        // isMainPage 변수를 false로 설정하여 전달 - 적용안안되는 부분
         model.addAttribute("isMainPage", false);
         return "articles/main";
     }
@@ -54,23 +53,35 @@ public class CarrierController {
         return "articles/productdetails"; // 상세 정보를 보여줄 페이지로 이동
     }
 
+    // 캐릭터 냉장고 추천 조회 - 함수명변경
     @GetMapping("articles/commend1")
-    public String Commend1() {
+    public String Commend1(Model model) {
+        List<Carrier> getCarrierCharacter = carrierservice.selectfindCharacter("KAKAO", "Ccomo", "SMEG");
+        model.addAttribute("getCarrierCharacter", getCarrierCharacter);
         return "articles/commend1";
     }
 
+    // 가성비 냉장고
     @GetMapping("articles/commend2")
-    public String Commend12() {
+    public String Commend12(Model model) {
+        List<Carrier> getCarriergasungbi = carrierservice.selectfindgasungbi("all");
+        model.addAttribute("getCarriergasungbi", getCarriergasungbi);
         return "articles/commend2";
     }
 
+    // 신혼부부추천 냉장고
     @GetMapping("articles/commend3")
-    public String Commend3() {
+    public String Commend3(Model model) {
+        List<Carrier> getCarrierNwl = carrierservice.selectfindNwl("all");
+        model.addAttribute("getCarrierNwl", getCarrierNwl);
         return "articles/commend3";
     }
 
+    // 1인가구 추천
     @GetMapping("articles/commend4")
-    public String Commend4() {
+    public String Commend4(Model model) {
+        List<Carrier> selectfindsingle = carrierservice.selectfindsingle("all");
+        model.addAttribute("selectfindsingle", selectfindsingle);
         return "articles/commend4";
     }
 }

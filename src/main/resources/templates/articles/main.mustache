@@ -1,14 +1,12 @@
 {{>layouts/header}}
 
-{{#isMainPage}}
-<!-- 검색 창 추가 -->
+<!-- 검색 창 추가 원래{{isMainPage}}있었는데 이거때문에 검색창이 사라져서 지움 -->
 <form class="searchs" style="text-align: center; margin: 50px">
-    <input class="form-control me-2" id="input" style="width:550px;height:50px; font-size:15px; display: inline-block;" type="search" placeholder="검색어를 입력하세요" aria-label="Search">
+    <input class="form-control me-2" id="input" style="width:550px;height:50px; font-size:15px; display: inline-block;" type="search" placeholder="브랜드명을 입력해주세요!" aria-label="Search">
     <button class="btn btn-outline-success" onclick="performSearch()">검색</button>
 </form>
 
 <h1 style="margin-left: 80px;">ALL</h1>
-{{/isMainPage}}
 
 <!-- main.mustache 내용 -->
 <div class="card-container">
@@ -24,17 +22,6 @@
     </div>
     {{/carrierList}}
 </div>
-{% comment %} <!-- 팝업 -->
-<div id="productPopup" class="ModalPopup">
-    <p id="popupProductName" class="brand"></p>
-    <p id="popupProductDescription" class="product-name"></p>
-    <p id="popupPrice">가격: </p>
-    <p id="popupCapacity">용량: </p>
-    <p id="popupSize">크기: </p>
-    <!-- 기타 제품 정보 항목 추가 -->
-    <button class="btn btn-primary" onclick="closeProductPopup()">닫기</button>
-    
-</div> {% endcomment %}
 
 <!-- 페이드 영역-->
 <div id="mask"></div>
@@ -125,23 +112,6 @@
         title.style.display = "block"; // 제목 보이게 변경
     });
     {{/isMainPage}}
-    // 페이지가 로드되면 실행될 함수
-    window.onload = function() {
-        // 모든 제품 카드 요소를 가져옴
-        var productCards = document.querySelectorAll('.card');
-
-        // 각 제품 카드에 클릭 이벤트 리스너 추가
-        productCards.forEach(function(card) {
-            card.addEventListener('click', function(event) {
-                // 클릭된 제품 카드의 데이터-product 속성값을 가져옴
-                var productId = card.getAttribute('data-product');
-
-                // 제품 카드가 클릭되었을 때 할 작업 수행
-                // 팝업 열기 함수 호출
-                openProductPopup(productId);
-            });
-        });
-    };
     /* 검색 로직 */
     function performSearch() {
         const searchTerm = document.getElementById('input').value;
@@ -149,21 +119,36 @@
         history.pushState({ path: newURL }, '', newURL);
         updateSearchResults(searchTerm);
     }
-        /* 메뉴 선택 시 페이지 이동*/
+    // 드롭다운 버튼 클릭 시 드롭다운 메뉴를 토글하는 함수
+    function toggleDropdown() {
+        var dropdownMenu = document.querySelector('.dropdown-menu');
+        if (dropdownMenu.style.display === 'block') {
+            dropdownMenu.style.display = 'none';
+        } else {
+            dropdownMenu.style.display = 'block';
+        }
+    }
+
+    // 드롭다운 메뉴 아이템을 클릭하여 페이지로 이동하는 함수
     function navigateToCommend1() {
-        // samsung Mustache 파일로 페이지 이동
         window.location.href = "/articles/commend1";
     }
+
     function navigateToCommend2() {
-        // LG Mustache 파일로 페이지 이동
         window.location.href = "/articles/commend2";
     }
+
     function navigateToCommend3() {
-        // KAKAO Mustache 파일로 페이지 이동
         window.location.href = "/articles/commend3";
     }
+
     function navigateToCommend4() {
-        // SMEG Mustache 파일로 페이지 이동
         window.location.href = "/articles/commend4";
     }
+
+    // 페이지 로드 시 초기화
+    document.addEventListener('DOMContentLoaded', function() {
+        // 드롭다운 버튼 클릭 시 토글 함수 호출
+        document.querySelector('#brandDropdownButton').addEventListener('click', toggleDropdown);
+    });
 </script>
