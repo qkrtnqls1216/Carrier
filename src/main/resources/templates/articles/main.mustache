@@ -1,12 +1,18 @@
 {{>layouts/header}}
-
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap" rel="stylesheet">
+</head>
 <!-- 검색 창 추가 원래{{isMainPage}}있었는데 이거때문에 검색창이 사라져서 지움 -->
 <form class="searchs" style="text-align: center; margin: 50px">
-    <input class="form-control me-2" id="input" style="width:550px;height:50px; font-size:15px; display: inline-block;" type="search" placeholder="브랜드명을 입력해주세요!" aria-label="Search">
-    <button class="btn btn-outline-success" onclick="performSearch()">검색</button>
+    <input class="form-control me-2" id="input" style="width: 550px; height: 50px; font-size: 24px; display: inline-block; font-family: 'Nanum Brush Script', cursive;" type="search" placeholder="Search Brand" aria-label="Search">
+    <button class="btn btn-outline-success" onclick="performSearch()" style=" font-size: 20px; font-family:'Nanum Brush Script', cursive; background-color: #fff;">Search</button>
 </form>
-
-<h1 style="margin-left: 80px; margin-top: 70px; font-size: 25px;">ALL</h1>
+<div class="three">
+    <h1> Our Collection </h1>
+        </div><div id="mask"></div>
+</div>
 
 <!-- main.mustache 내용 -->
 <div class="card-container">
@@ -28,6 +34,7 @@
 <style>
     .container {
         text-align: center;
+        font-family: 'YourFont', sans-serif;
     }
     .card-container {
         display: flex;
@@ -42,6 +49,8 @@
         padding: 10px;
         width: 200px;
         box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+        font-family: Georgia, serif;
+        font-size: 17px;
     }
 
     .card img {
@@ -54,30 +63,55 @@
         margin-top: 10px;
         text-align: center;
         color: black; /* 글자색을 검은색으로 설정 */
+        font-size: 17px;
+        font-family: Georgia, serif;
     }
 
     .brand {
         font-weight: bold;
         margin-bottom: 5px;
+        font-size: 17px;
+        text-decoration: none;
+        font-family: Georgia, serif;
     }
-
     .product-name {
         font-size: 14px;
+        text-decoration: none;
+        font-family: Georgia, serif;
     }
-    /* 팝업 스타일 수정 */
-    .ModalPopup {
-        border: 1px solid blue;
-        width: 300px; /* 팝업 너비 조정 */
-        padding: 20px; /* 내용 여백 추가 */
-        display: none;
-        position: fixed; /* 고정 위치 */
-        top: 50%; /* 화면 세로 중앙으로 이동 */
-        left: 50%; /* 화면 가로 중앙으로 이동 */
-        transform: translate(-50%, -50%); /* 가운데 정렬 */
-        z-index: 10000;
-        background-color: #fff;
+
+    .three h1 {
+    font-size: 30px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 1.5em;
+    padding-bottom: 15px;
+    position: relative;
+
+    color: #fff; /* 글자색 하양으로 변경 */
+    padding-left: 80px; /* 왼쪽 패딩 추가하여 오른쪽으로 이동 */
+
+    font-family: cursive;
     }
-    /* 배경에 화려한 빛나는 효과 애니메이션 추가 */
+    .three h1:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 5px;
+    width: 55px;
+    background-color: #111;
+    }
+    .three h1:after {
+    content:"" ;
+    position:absolute ;
+    left:auto ; right:-.2em ; top:-.6em ;
+    height:.2em ; width:.5em ;
+        -ms-transform : rotate(140deg);     /* IE 9 */
+        -webkit-transform : rotate(140deg); /* Chrome, Safari, Opera */
+        transform : rotate(140deg);
+     }
+    /*배경에 화려한 빛나는 효과 애니메이션 추가 */
     @keyframes shine {
         0% {
             background-color: gray;
@@ -92,6 +126,7 @@
 
     body {
         animation: shine 4s linear infinite; /* 무한한 반짝임 애니메이션 추가 */
+        font-family: Arial; 
     }
     /* 카드 호버 효과 정의 */
     .card:hover {

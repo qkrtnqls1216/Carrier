@@ -1,5 +1,8 @@
 {{>layouts/header}}
-<h1 style="margin-left: 80px; margin-top: 70px; font-size: 25px;">1인가구추천</h1>
+<div class="three">
+  <h1>Beauty Your Single Life</h1>
+  </div><div id="mask"></div>
+</div>
 
 <!-- main.mustache 내용 -->
 <div class="card-container">
@@ -25,9 +28,9 @@
     .card-container {
         display: flex;
         flex-wrap: wrap;
-        justify-content: center; /* 카드들을 수평으로 가운데 정렬 */
+        justify-content: center;
     }
-
+    
     .card {
         border: 1px solid #ccc;
         border-radius: 5px;
@@ -35,6 +38,7 @@
         padding: 10px;
         width: 200px;
         box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+        font-family: font-family: Georgia, serif;
     }
 
     .card img {
@@ -52,11 +56,47 @@
     .brand {
         font-weight: bold;
         margin-bottom: 5px;
+        font-size: 17px;
+        text-decoration: none;
+        font-family: Georgia, serif;
+    }
+        .product-name {
+        font-size: 14px;
+        text-decoration: none;
+        font-family: Georgia, serif;
     }
 
-    .product-name {
-        font-size: 14px;
+    .three h1 {
+    font-size: 30px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 1.5em;
+    padding-bottom: 15px;
+    position: relative;
+
+    color: #fff; /* 글자색 하양으로 변경 */
+    padding-left: 80px; /* 왼쪽 패딩 추가하여 오른쪽으로 이동 */
+
+    font-family: cursive;
     }
+    .three h1:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 5px;
+    width: 55px;
+    background-color: #111;
+    }
+    .three h1:after {
+    content:"" ;
+    position:absolute ;
+    left:auto ; right:-.2em ; top:-.6em ;
+    height:.2em ; width:.5em ;
+        -ms-transform : rotate(140deg);     /* IE 9 */
+        -webkit-transform : rotate(140deg); /* Chrome, Safari, Opera */
+        transform : rotate(140deg);
+     }
     /* 팝업 스타일 수정 */
     .ModalPopup {
         border: 1px solid blue;

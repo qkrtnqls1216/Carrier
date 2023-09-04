@@ -8,6 +8,9 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap" rel="stylesheet">
     <!-- Your other meta tags, links, and stylesheets... -->
 </head>
 <style>
@@ -20,39 +23,43 @@
 /* Navbar 브랜드 로고 스타일 수정 */
 .navbar-brand {
     color: white !important; /* 글자색 흰색으로 설정 */
-    font-size: 24px; /* 원하는 글자 크기로 설정 */
+    font-size: 25px; /* 원하는 글자 크기로 설정 */
 }
 
 /* Dropdown 메뉴 아이템 글자색과 크기 수정 */
 .dropdown-menu a.dropdown-item {
     color: black !important; /* 드롭다운 메뉴 글자색 변경 */
-    font-size: 16px; /* 드롭다운 메뉴 글자 크기 변경 */
+    font-family: 'Nanum Brush Script', cursive;
+    font-size: 25px; /* 드롭다운 메뉴 글자 크기 변경 */
+    color: #fff;
 }
 
 /* Home 버튼 스타일 수정 */
 .nav-item a.btn {
-    font-size: 16px; /* Home 버튼 글자 크기 변경 */
+    font-size: 30px; /* Home 버튼 글자 크기 변경 */
 }
+
 </style>
 <body>
     <!-- Navigation with Dropdown -->
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: gray;">
-        <a class="navbar-brand mx-auto" href="#" style="color: white;">Been's Refrigerator</a>
+        <a class="navbar-brand mx-auto" href="#" style="color: white; font-family: 'Nanum Brush Script', cursive;">Been's Refrigerator</a>
         <div class="ml-auto">
             <div class="dropdown">
-                <button class="menu_button dropdown-toggle" type="button" id="brandDropdownButton" style="background-color: transparent; border: 1px solid transparent; color: white;">
-                    CTG
+                <button class="menu_button dropdown-toggle" type="button" id="brandDropdownButton" style="background-color: transparent; border: 1px solid transparent; color: white; font-family: 'Nanum Brush Script', cursive; font-size: 30px;">
+                     CTG
                 </button>
+            </div>
                 <ul class="dropdown-menu" aria-labelledby="brandDropdown">
-                    <li><a class="dropdown-item" href="#" onclick="navigateToCommend1()">귀염뽀짝</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="navigateToCommend2()">가성비냉장고</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="navigateToCommend3()">신혼부부추천</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="navigateToCommend4()">1인가구추천</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="navigateToCommend1()">Cute Style</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="navigateToCommend2()">Save Money</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="navigateToCommend3()">Honeymoon</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="navigateToCommend4()">Single Life</a></li>
                 </ul>
             </div>
         </div>
         <div class="nav-item">
-            <a class="btn btn-primary btn-sm rounded-pill nav-link" href="/articles/main" style="background: none; border: none; color: white;">Home</a>
+            <a class="btn btn-primary btn-sm rounded-pill nav-link" href="/articles/main" style="background: none; border: none; color: white; font-family: 'Nanum Brush Script', cursive;">Home</a>
         </div>
     </nav>
     <!-- Popper.js -->
