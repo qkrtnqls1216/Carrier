@@ -16,20 +16,20 @@ public interface CarrierRepository extends JpaRepository<Carrier, Long> { // 인
     Carrier findByProductId(Long productId);
 
     // 케릭터 냉장고 커리문
-    @Query("SELECT c FROM Carrier c WHERE c.price <= 1000000 and c.capacity <= 600 and (c.brand like :brand1 or c.brand like :brand2 or c.brand like :brand3) ORDER BY c.price ASC, c.capacity DESC")
+    @Query("SELECT c FROM Carrier c WHERE c.price <= 1000000 and c.capacity <= 600 and (lower(c.brand) like lower(concat('%', :brand1, '%')) or lower(c.brand) like lower(concat('%', :brand2, '%')) or lower(c.brand) like lower(concat('%', :brand3, '%'))) ORDER BY c.price ASC, c.capacity DESC")
     List<Carrier> selectAllCharacter(@Param("brand1") String brand1, @Param("brand2") String brand2,
-            @Param("brand3") String brand3);
+    @Param("brand3") String brand3);
 
     // 가성비 냉장고powerConsumptionGrade
-    @Query("SELECT c FROM Carrier c WHERE c.price <= 1000000 and c.capacity >= 300 and c.capacity <= 1000 and (:brand IS NULL OR c.brand like %:brand%) and c.powerConsumptionGrade > 0 and c.powerConsumptionGrade <= 5 and doorCount <= 4 and numberofusers <= 4 ORDER BY price ASC, capacity DESC")
+    @Query("SELECT c FROM Carrier c WHERE c.price > 560000 AND c.price <= 1000000 and c.capacity >= 450 and c.capacity <= 1000 and (:brand IS NULL OR lower(c.brand) like lower(concat('%', :brand, '%'))) and c.powerConsumptionGrade > 0 and c.powerConsumptionGrade <= 5 and c.doorCount <= 4 and c.numberOfUsers <= 4 ORDER BY c.price ASC, c.capacity DESC, c.doorCount DESC, c.powerConsumptionGrade ASC, c.numberOfUsers DESC")
     List<Carrier> selectAllgasungbi(@Param("brand") String brand);
 
     // 신혼부부 냉장고
-    @Query("SELECT c FROM Carrier c WHERE c.price <= 800000 AND c.capacity <= 600 AND (:brand IS NULL OR c.brand like %:brand%) ORDER BY c.price ASC, c.capacity DESC")
+    @Query("SELECT c FROM Carrier c WHERE c.price >= 580000 AND c.price <= 1200000 AND c.capacity <= 800 AND c.capacity >= 400 AND c.doorCount <=4 AND c.powerConsumptionGrade <= 5 AND (:brand IS NULL OR lower(c.brand) like lower(concat('%', :brand, '%'))) AND c.powerConsumptionGrade > 0 ORDER BY c.price ASC, c.capacity DESC, c.doorCount DESC, c.powerConsumptionGrade ASC")
     List<Carrier> selectAllNwl(@Param("brand") String brand);
 
     // 1인가구
-    @Query("SELECT c FROM Carrier c WHERE c.price <= 600000 AND c.capacity <= 300 AND c.capacity >= 100 AND (:brand IS NULL OR c.brand like %:brand%) AND c.powerConsumptionGrade > 0 and c.powerConsumptionGrade <= 5 AND c.doorCount <= 4 AND c.numberOfUsers <= 4 ORDER BY c.price ASC, c.capacity DESC, c.numberOfUsers DESC, c.doorCount DESC, c.powerConsumptionGrade ASC")
+    @Query("SELECT c FROM Carrier c WHERE c.price <= 600000 AND c.capacity <= 300 AND c.capacity >= 50 AND (:brand IS NULL OR lower(c.brand) like lower(concat('%', :brand, '%'))) AND c.powerConsumptionGrade > 0 and c.powerConsumptionGrade <= 5 AND c.doorCount <= 4 AND c.numberOfUsers <= 4 ORDER BY c.price ASC, c.capacity DESC, c.numberOfUsers DESC, c.doorCount DESC, c.powerConsumptionGrade ASC")
     List<Carrier> selectAllsingle(@Param("brand") String brand);
 
 }
