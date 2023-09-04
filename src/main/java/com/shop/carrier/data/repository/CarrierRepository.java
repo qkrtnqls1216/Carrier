@@ -25,7 +25,7 @@ public interface CarrierRepository extends JpaRepository<Carrier, Long> { // 인
     List<Carrier> selectAllgasungbi(@Param("brand") String brand);
 
     // 신혼부부 냉장고
-    @Query("SELECT c FROM Carrier c WHERE c.price >= 580000 AND c.price <= 1200000 AND c.capacity <= 800 AND c.capacity >= 400 AND c.doorCount <=4 AND c.powerConsumptionGrade <= 5 AND (:brand IS NULL OR lower(c.brand) like lower(concat('%', :brand, '%'))) AND c.powerConsumptionGrade > 0 ORDER BY c.price ASC, c.capacity DESC, c.doorCount DESC, c.powerConsumptionGrade ASC")
+    @Query("SELECT c FROM Carrier c WHERE c.price >= 600000 AND c.price <= 1200000 AND c.capacity <= 800 AND c.capacity >= 400 AND c.doorCount <=4 AND c.powerConsumptionGrade <= 5 AND (:brand IS NULL OR lower(c.brand) like lower(concat('%', :brand, '%'))) AND c.powerConsumptionGrade > 0 ORDER BY c.price ASC, c.capacity DESC, c.doorCount DESC, c.powerConsumptionGrade ASC")
     List<Carrier> selectAllNwl(@Param("brand") String brand);
 
     // 1인가구
